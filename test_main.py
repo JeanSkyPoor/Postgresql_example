@@ -1,37 +1,38 @@
 from config import *
-
+from secondary_defs import read_data_for_table
 
 
 def test_create_mobile_table(connection):
     with connection.cursor() as cursor:
         cursor.execute(
-                """
-                DROP TABLE IF EXISTS mobiles;  
+            """
+            DROP TABLE IF EXISTS mobiles;  
 
-                CREATE TABLE mobiles (
-                    id serial PRIMARY KEY,
-                    model_name VARCHAR(50),
-                    year VARCHAR(4),
-                    company VARCHAR(50)
-                );
+            CREATE TABLE mobiles (
+                id serial PRIMARY KEY,
+                model_name VARCHAR(50),
+                year VARCHAR(4),
+                company VARCHAR(50)
+            );
 
-                SELECT 'mobiles' FROM INFORMATION_SCHEMA.TABLES;"""
+            SELECT 'mobiles' FROM INFORMATION_SCHEMA.TABLES;
+            """
             )
         assert len(cursor.fetchone()) == 1, "Table is not created"
 
 
 def test_add_info(connection):
     with connection.cursor() as cursor:
-        cursor.execute(
-            """
-            INSERT INTO mobiles (model_name, year, company) VALUES
-            ('Huawei P30 Lite', '2020', 'Huawei Technology Company'),
-            ('Iphone 11', '2019', 'Apple'),
-            ('HONOR X6', '2022', 'HONOR Device Company'),
-            ('Xiaomi 12T PRO', '2022', 'Xiaomi Corporation')
-            ;
-            """
-        )
+        data = read_data_for_table()
+
+        for item in data:
+            cursor.execute(
+                f"""
+                INSERT INTO mobiles (model_name, year, company) VALUES
+                {item}
+                ;
+                """
+                )
 
         cursor.execute(
             """
