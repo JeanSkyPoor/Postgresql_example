@@ -41,3 +41,24 @@ def test_add_info(connection):
         )
         assert len(cursor.fetchone()) == 1, "Info is not created in BD"
 
+
+def test_update_table(connection):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            UPDATE mobiles
+            SET model_name = 'NEW', year = '2029'
+            WHERE model_name = 'Huawei P30 Lite'
+            """
+        )
+
+        cursor.execute(
+            """ 
+            SELECT COUNT(*) FROM mobiles
+            WHERE model_name = 'NEW' and year = '2029' 
+            """
+        )
+        assert len(cursor.fetchone()) == 1, 'Row is not updated'
+
+
+
