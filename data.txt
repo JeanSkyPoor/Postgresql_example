@@ -1,0 +1,4 @@
+('Huawei P30 Lite', '2020', 'Huawei Technology Company')
+('Iphone 11', '2019', 'Apple')
+('HONOR X6', '2022', 'HONOR Device Company')
+('Xiaomi 12T PRO', '2022', 'Xiaomi Corporation')
