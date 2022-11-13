@@ -27,11 +27,8 @@ def test_add_info(connection):
 
         for item in data:
             cursor.execute(
-                f"""
-                INSERT INTO mobiles (model_name, year, company) VALUES
-                {item}
-                ;
-                """
+                f"""INSERT INTO mobiles (model_name, year, company) VALUES
+                    {item};"""
                 )
 
         cursor.execute(
